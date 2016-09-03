@@ -1,5 +1,15 @@
 # Debugger
-### Simple logger and debugger tool for php. All under one script!
+### Simple logger for debugging in one PHP script
+
+## Features
+* Logs data in file or returns data for printing/storing.
+* Additional information like timestamp, data type, serial number is added to log.
+* Simple browser friendly formatting.
+* Supports major data types, arrays, objects.
+* Supports output in JSON format.
+* Built in counter.
+* Support for changing file name any time while logging.
+* Time based file name suffix can be used to segregate log files.
 
 ## Basic Usage
 ```php
@@ -28,17 +38,17 @@ $debugger->error("That feels like an over simplification.");
 $debugger->i($_SERVER);
 
 // Return output instead of putting into log. Pass true as second parameter.
-echo $debugger->i("I'm real when it's useful", true); // Prints instead of putting into log
+echo $debugger->i("I'm real when it's useful.", true); // Prints instead of putting into log
 ```
 
 ## Documentation
 ### Constructor
 * Default constructor will use **/tmp** directory and a file called **Debugger.log**.
-* *Note that in many systems http or www-data user data are stored in subdirectories created by apache server.*
+* *Note that in many systems, apache users like http or www-data create subdirectories under /tmp directory and then create files.*
 ```php
 $debugger = new Debugger();
 ```
-* Instantiate with path and log file segmentation configurations
+* Instantiate with path and file segmentation configurations
 ```php
 $debugger = new Debugger(<file path>, <file segmentation>);
 $debugger = new Debugger('/home/sohel/Documents/Logfile.log', 'DAY');
@@ -46,8 +56,8 @@ $debugger = new Debugger('/home/sohel/Documents/Logfile.log', 'DAY');
 
 ### File Segmentation
 * Log file segmentation puts a suffix in log file name based on time.
-* For example, 'DAY' will add a suffix for a day, like 2016-08-30 and make the file name like **Logfile_2016-08-30.log**
-* Suffix is added with the given file name, so if there is a file named **Logfle.log**, a new file will be created with a name **Logfile_2016-08-30.log** if not already exists,
+* For example, 'DAY' will add a suffix for a day, such as 2016-08-30, and make the file name like **Logfile_2016-08-30.log**
+* Suffix is added with the given file name, so if there's a file named **Logfle.log**, then a new file will be created with a name **Logfile_2016-08-30.log** if not already exists,
 * Other segmentations are 'NONE', 'YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE', 'SECOND'
 * Default segmentation is 'NONE', which won't create any segments and put all logs in one file.
 
@@ -93,8 +103,10 @@ $output = $debugger->j($data, true);
 ### Output Format
 * Output data is a string containing a preamble followed by formatted data.
 * Preamble consists of log serial number, timestamp, log type and data type. Preamble looks like following,
-> **[2] [2016-09-03 09:35:10] [DEBUG] [DATATYPE:object]**
-* When data is returned, by default it's wrapped inside a **pre** tag, just to increase redability on browser.
+```
+[2] [2016-09-03 09:35:10] [DEBUG] [DATATYPE:object]
+```
+* When data is returned, by default it's wrapped inside ```<pre>``` tag, just to increase readability on browser.
 * Pretty formatting can be disabled and enabled by calling **ugly()** and **pretty()** methods respectively.
 
 ```php
@@ -111,7 +123,7 @@ $serverJSON = $debugger->j($_SERVER, true, true); // Returns JSON string of $_SE
 ```php
 echo $debugger->count(); // Increments the counter by one
 ```
-* Counter has other actions, like decrement. reset and get current value. Action strings are passed as function parameter. For all actions, counter performs the action first and then return the counter value.
+* Counter has other actions, like decrement. reset and get current value. Action strings are passed as function parameter. For all actions, counter performs the action first and then returns the counter value.
 ```php
 echo $debugger->count('DEC'); // Decrements the counter by one
 echo $debugger->count('RESET'); // Resets the counter to zero
@@ -129,4 +141,4 @@ $debugger->msg('Winter is coming!');
 $debugger->msg(); // This will simply print 'Hello, World!'
 ```
 
-** That'd be all. Happy debugging! **
+**That'd be all. Thanks!**
