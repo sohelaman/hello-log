@@ -1,5 +1,5 @@
 # Debugger
-### Simple logger for debugging in one PHP script
+### Simple PHP logger for debugging
 
 ## Features
 * Logs data in file or returns data for printing/storing.
