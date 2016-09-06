@@ -17,12 +17,14 @@ class Debugger {
 	public $_fileSegmentation;
 	private $_counter;
 	private $_serial;
-	private $_pretty;
+  private $_pretty;
+	private $_overwrite;
 
-	function __construct($logFilePath = false, $fileSegmentation = 'NONE') {
+	function __construct($logFilePath = false, $fileSegmentation = 'NONE', $overwrite = false) {
 		$this->_counter = 0;
 		$this->_serial = -1;
 		$this->_pretty = true;
+    $this->_overwrite = ($overwrite === true);
 		$this->_fileSegmentation = $fileSegmentation;
 		$this->_logFilePath = $logFilePath;
 		$this->generateLogWritePath();
@@ -107,6 +109,10 @@ class Debugger {
 	function ugly() {
 		$this->_pretty = false;
 	}
+  
+  function overwrite($overwrite) {
+    $this->_overwrite = ($overwrite === true);
+  }
 
 	function time($return = false) {
 		$date = date('[Y-m-d H:i:s]');
@@ -146,7 +152,8 @@ class Debugger {
 				return false;
 			}
 
-			return file_put_contents( $this->_logWritePath, $string, FILE_APPEND );
+      $overwriteFlag = $this->_overwrite ? 0 : FILE_APPEND;
+			return file_put_contents( $this->_logWritePath, $string, $overwriteFlag );
 
 		} catch (Exception $e) {
 			print $e->getMessage();

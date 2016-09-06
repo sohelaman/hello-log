@@ -53,6 +53,16 @@ $debugger = new Debugger();
 $debugger = new Debugger(<file path>, <file segmentation>);
 $debugger = new Debugger('/home/sohel/Documents/Logfile.log', 'DAY');
 ```
+* Third constructor parameter is overwrite flag. If it is true, then the file will be overwritten for each log.
+```php
+$debugger = new Debugger(<file path>, <file segmentation>, <overwrite flag>);
+$debugger = new Debugger('/home/sohel/Documents/Logfile.log', 'DAY', true); // Overwrites the file if file exists
+```
+* NOTE that, once overwrite flag is turned on, file will be overwritten EACH time you put anyting into log file. Overwrite flag can be turned on or off using overwrite() method. If not explicitly specified, overwrite flag is truned off by default.
+```php
+$debugger->overwrite(false); // Turns off overwrite flag. So, logs will be appended after this call.
+$debugger->overwrite(true); // Turns on overwrite flag.
+```
 
 ### File Segmentation
 * Log file segmentation puts a suffix in log file name based on time.
