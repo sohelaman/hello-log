@@ -1,6 +1,7 @@
 {
     "name": "sohelaman/hello-log",
     "description": "Hello World kind of logger for PHP",
+    "version": "0.0.1",
     "type": "library",
     "authors": [
         {
